@@ -8,6 +8,7 @@ package douyu;
 import com.google.gson.*;
 import java.io.*;
 import java.net.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -89,6 +90,7 @@ public class Douyu {
                     String start_time = data.get("start_time").toString();
                     Date now = new Date(); 
                    
+                    DateFormat format = new SimpleDateFormat("HH:mm:ss");
                     
                     attr.setError(error);
                     attr.setRoomNum(room_id);
@@ -96,7 +98,7 @@ public class Douyu {
                     attr.setOnline(online);
                     attr.setStatus(room_status);
                     attr.setStart_Time(start_time);
-                    attr.setCurrent_time(now.toString());
+                    attr.setCurrent_time(format.format(now));
                     
                     
                     reader.close();
@@ -116,7 +118,7 @@ public class Douyu {
     public static boolean writeIntoFile(Attribute attr, String fileName, String sheetName) throws Exception {
         if (!fileExist(fileName)) {
 
-            String[] title = {"Error", "Room_num", "Cate_name", "Status", "Online", "Start_Time", "Current_Time"};
+            String[] title = {"Error", "Room_num", "Cate_name", "Status","Current_Time", "Online","Start_Time"};
             createExcel(fileName, sheetName, title);
         } else {
                 if(attr.getStatus()){
@@ -187,16 +189,20 @@ public class Douyu {
         String online = attr.getOnline() + "";
         String start_time = attr.getStart_Time();
         String current_time = attr.getCurrent_Time();
-        String[] datas = {error, room_num, cate_name, status, online, start_time, current_time};
+        String[] datas = {error, room_num, cate_name, status, current_time, online,  start_time};
         HSSFSheet sheet = workbook.getSheet(sheetName);
         HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
         FileOutputStream out = new FileOutputStream(fileName);
         for (int i = 0; i < sheet.getRow(0).getLastCellNum(); i++) {
+            if(i != 5){
             row.createCell(i).setCellValue(datas[i]);
-            System.out.println("错误信息：" + error + "\n房间id：" + room_num
-                            + "\n分类名称：" + cate_name + "\n房间状态：" + status + "\n在线人数：" + online + "\n开播时间：" + start_time + "\n当前时间" + current_time);
+            }else{
+            row.createCell(i).setCellValue(Double.parseDouble(datas[i]));
+            }
+            
         }
-
+        System.out.println("\n房间id：" + room_num
+                          + "\n房间状态：" + status + "\n在线人数：" + online + "\n当前时间" + current_time);
         out.flush();
         workbook.write(out);
         out.close();

@@ -29,7 +29,7 @@ public class MyTimerTask extends TimerTask {
             douyu.run();
             if(!douyu.getStatus()){
                 System.out.println("Anchor is not online! ");
-                System.out.println("执行时间" + date);
+                System.out.println("错误执行时间" + date);
                 System.exit(0);
             }
             System.out.println("执行时间" + date);
