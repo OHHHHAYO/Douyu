@@ -14,8 +14,13 @@ import java.util.Timer;
 public class Main {
     public static void main(String[] args){
         Douyu douyu = new Douyu();
+        
         Timer timer = new Timer();
         timer.schedule(new MyTimerTask(douyu),1000,3000);
+       // else{
+         //   System.out.println("Anchor is not online! ");
+        //}
+        
         
     }
 }

@@ -16,8 +16,9 @@ public class Attribute {
     private String cate_name;
     private String status;
     private int online;
-    private String time;
-
+    private String start_time;
+    private String current_time;
+    
     public int getError() {
         return error;
     }
@@ -31,7 +32,7 @@ public class Attribute {
     }
 
     public boolean getStatus() {
-        if (status == "1") {
+        if (status.equals("\"1\"")) {
             return true;
         }
 
@@ -42,11 +43,14 @@ public class Attribute {
         return online;
     }
 
-    public String getTime() {
+    public String getStart_Time() {
 
-        return time;
+        return start_time;
     }
-
+    public String getCurrent_Time(){
+        return current_time;
+    }
+    
     public void setError(String error) {
         this.error = Integer.parseInt(error);
     }
@@ -67,7 +71,11 @@ public class Attribute {
         this.online = Integer.parseInt(online);
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStart_Time(String time) {
+        this.start_time = time;
+    }
+    
+    public void setCurrent_time(String current_time){
+        this.current_time = current_time;
     }
 }

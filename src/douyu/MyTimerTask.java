@@ -27,6 +27,11 @@ public class MyTimerTask extends TimerTask {
         try {
             Date date = new Date(this.scheduledExecutionTime());
             douyu.run();
+            if(!douyu.getStatus()){
+                System.out.println("Anchor is not online! ");
+                System.out.println("执行时间" + date);
+                System.exit(0);
+            }
             System.out.println("执行时间" + date);
         } catch (Exception ex) {
             Logger.getLogger(MyTimerTask.class.getName()).log(Level.SEVERE, null, ex);
