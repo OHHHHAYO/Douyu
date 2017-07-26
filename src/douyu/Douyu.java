@@ -24,22 +24,23 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * @author yansunkang
  */
 public class Douyu {
-
+    
     private static HSSFWorkbook workbook = null;
     private boolean getstatus = true;
     /**
      * @throws java.lang.Exception
      */
     public void run() throws Exception {
-        // TODO code application logic here
-        String url = "http://open.douyucdn.cn/api/RoomApi/room/84452";
+        // Add API server URL
+        String url = "http://open.douyucdn.cn/api/RoomApi/room/71415";
 
         Attribute attr = new Attribute();
         BufferedReader reader = null;
         BufferedWriter writer = null;
-
+        //process the Json data returned from server
         String result = processJson(reader, writer, url, attr);
-        getstatus = writeIntoFile(attr, "/Users/yansunkang/Desktop/Douyu/Douyu_Data.xls", "Yin Zi");
+        //write the data to excel file
+        getstatus = writeIntoFile(attr, "/Users/yansunkang/Desktop/Douyu/Douyu_Data4.xls", "Yin Zi");
         
     }
 
@@ -48,7 +49,7 @@ public class Douyu {
         try {
 
             
-          
+            // connect the server
             URL realURL = new URL(url);
 
             URLConnection connection = realURL.openConnection();
@@ -58,7 +59,7 @@ public class Douyu {
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             String line;
-
+            
             while ((line = reader.readLine()) != null) {
 
                 result += line;

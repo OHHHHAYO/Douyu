@@ -16,7 +16,7 @@ public class Main {
         Douyu douyu = new Douyu();
         
         Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(douyu),1000,3000);
+        timer.schedule(new MyTimerTask(douyu),1000,300000);
        // else{
          //   System.out.println("Anchor is not online! ");
         //}
